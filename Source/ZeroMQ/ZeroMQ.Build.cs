@@ -23,34 +23,14 @@ public class ZeroMQ : ModuleRules
         // Define that we're linking the static library
         PublicDefinitions.Add("ZMQ_STATIC");
 
-        string staticLibrary = "";
-        switch (Target.Platform)
-        {
-            case UnrealTargetPlatform.Win64:  // Use Win64 instead of Win32
-                staticLibrary = Path.Combine(ZeroMQRootPath, "Windows", "x64", "libzmq-v141-mt-s-4_3_2.lib");
-                break;
-            case UnrealTargetPlatform.Linux:
-                staticLibrary = Path.Combine(ZeroMQRootPath, "Linux", "libzmq.so");
-                PublicAdditionalLibraries.Add("stdc++");
-                break;
-            case UnrealTargetPlatform.Mac:
-                staticLibrary = Path.Combine(ZeroMQRootPath, "MacOS", "libzmq.a");
-                break;
-            default:
-                Console.WriteLine("Unsupported target platform: {0}", Target.Platform);
-                Debug.Assert(false);
-                break;
-        }
+        // Set the static library path for Windows 64-bit
+        string staticLibrary = Path.Combine(ZeroMQRootPath, "Windows", "x64", "libzmq-v141-mt-s-4_3_2.lib");
 
-        // Ensure that we're using a constant value (string) in this line
+        // If the static library path is set, add it to the build
         if (!string.IsNullOrEmpty(staticLibrary))
         {
             Console.WriteLine("Using ZeroMQ static library: {0}", staticLibrary);
             PublicAdditionalLibraries.Add(staticLibrary);
-        }
-        else
-        {
-            Debug.Assert(false, "Static library path is empty or invalid");
         }
 
         // Enable exceptions
@@ -64,3 +44,4 @@ public class ZeroMQ : ModuleRules
         AddZeroMQ(Target);
     }
 }
+
