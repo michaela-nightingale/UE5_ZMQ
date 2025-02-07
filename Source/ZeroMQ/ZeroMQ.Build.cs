@@ -1,5 +1,3 @@
-// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
-
 using UnrealBuildTool;
 using System;
 using System.IO;
@@ -19,16 +17,16 @@ public class ZeroMQ : ModuleRules
 
     public void AddZeroMQ(ReadOnlyTargetRules Target)
     {
-        // add headers
+        // Add include paths
         PublicIncludePaths.Add(Path.Combine(ZeroMQRootPath, "include"));
 
-        // tell library that it is statically linked
+        // Define that we're linking the static library
         PublicDefinitions.Add("ZMQ_STATIC");
 
         string staticLibrary = "";
         switch (Target.Platform)
         {
-            case UnrealTargetPlatform.Win64:
+            case UnrealTargetPlatform.Win64:  // Use Win64 instead of Win32
                 staticLibrary = Path.Combine(ZeroMQRootPath, "Windows", "x64", "libzmq-v141-mt-s-4_3_2.lib");
                 break;
             case UnrealTargetPlatform.Linux:
@@ -39,23 +37,30 @@ public class ZeroMQ : ModuleRules
                 staticLibrary = Path.Combine(ZeroMQRootPath, "MacOS", "libzmq.a");
                 break;
             default:
-                Console.WriteLine("unsupported target platform: %s", Target.Platform);
+                Console.WriteLine("Unsupported target platform: {0}", Target.Platform);
                 Debug.Assert(false);
                 break;
         }
 
+        // Ensure that we're using a constant value (string) in this line
+        if (!string.IsNullOrEmpty(staticLibrary))
+        {
+            Console.WriteLine("Using ZeroMQ static library: {0}", staticLibrary);
+            PublicAdditionalLibraries.Add(staticLibrary);
+        }
+        else
+        {
+            Debug.Assert(false, "Static library path is empty or invalid");
+        }
+
+        // Enable exceptions
         bEnableExceptions = true;
-
-        Console.WriteLine("Using ZeroMQ static library: {0}", staticLibrary);
-        PublicAdditionalLibraries.Add(staticLibrary);
     }
-
 
     public ZeroMQ(ReadOnlyTargetRules Target) : base(Target)
     {
         PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
         PublicDependencyModuleNames.AddRange(new string[] { "Core" });
         AddZeroMQ(Target);
-
     }
 }
