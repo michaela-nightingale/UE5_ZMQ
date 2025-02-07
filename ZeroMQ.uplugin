@@ -1,12 +1,12 @@
 {
 	"FileVersion": 3,
 	"Version": 1,
-	"VersionName": "4.3.2",
+	"VersionName": "4.3.3",
 	"FriendlyName": "ZeroMQ",
 	"Description": "C++ bindings zmqcpp as a Unreal Engine 4 plugin. Usage: #include <zmq.hpp>",
 	"Category": "Other",
-	"CreatedBy": "Halvor Haukvik",
-	"CreatedByURL": "github.com/hdhauk/UnrealZeroMQ",
+	"CreatedBy": "Juan Manuel Jauregui",
+	"CreatedByURL": "github.com/JuanManuelJaureguiRozo/Unreal5ZeroMQ",
 	"DocsURL": "",
 	"MarketplaceURL": "",
 	"SupportURL": "",
@@ -19,5 +19,6 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
 		}
-	]
+	],
+	"IsExperimentalVersion": false
 }
