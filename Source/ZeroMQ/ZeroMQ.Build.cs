@@ -31,9 +31,6 @@ public class ZeroMQ : ModuleRules
             case UnrealTargetPlatform.Win64:
                 staticLibrary = Path.Combine(ZeroMQRootPath, "Windows", "x64", "libzmq-v141-mt-s-4_3_2.lib");
                 break;
-            case UnrealTargetPlatform.Win32:
-                staticLibrary = Path.Combine(ZeroMQRootPath, "Windows", "x86", "libzmq-v141-mt-s-4_3_2.lib");
-                break;
             case UnrealTargetPlatform.Linux:
                 staticLibrary = Path.Combine(ZeroMQRootPath, "Linux", "libzmq.so");
                 PublicAdditionalLibraries.Add("stdc++");
