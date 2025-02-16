@@ -26,12 +26,8 @@ public class ZeroMQ : ModuleRules
         // Set the static library path for Windows 64-bit
         string staticLibrary = Path.Combine(ZeroMQRootPath, "Windows", "x64", "libzmq-v141-mt-s-4_3_2.lib");
 
-        // If the static library path is set, add it to the build
-        if (!string.IsNullOrEmpty(staticLibrary))
-        {
-            Console.WriteLine("Using ZeroMQ static library: {0}", staticLibrary);
-            PublicAdditionalLibraries.Add(staticLibrary);
-        }
+        Console.WriteLine("Using ZeroMQ static library: {0}", staticLibrary);
+        PublicAdditionalLibraries.Add(staticLibrary);
 
         // Enable exceptions
         bEnableExceptions = true;
